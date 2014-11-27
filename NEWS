@@ -1,0 +1,116 @@
+# News for the subsemble package. #
+
+Notice to users: The interface (function arguments/values) may be subject to change prior to version 1.0.0.
+
+Known Bugs
+----------------
+* Cannot use `parallel="multicore"` when `"SL.gbm"` is part of the library.  This is because the `"SL.gbm"` function uses multicore parallelization by default and R gets upset when you have two levels of multicore parallelism.  This may be fixed in a future release.  This is the error: `Error in checkForRemoteErrors(val) :
+  7 nodes produced errors; first error: cannot open the connection`
+* Some of the SuperLearner algorithm wrappers have issues with factor variables, for example `SL.glm`.  This occurs in the internal CV step when the validation set has new levels that are not in the training set.  These can be fixed by updating the wrapper functions.
+
+
+To Do
+----------------
+* Add support in the for the `method` function type from the `SuperLearner::SuperLearner` function as an option for the `metalearner`.
+* Add `cvRisk` to subsemble output.  Currently `NULL`.
+* Add extra validation of `learner` and `metalearner` arguments using the `.check.SL.library` function from the SL package or write a validation function from scratch.
+* Drop learners that produce NA predicted values in Z matrix, or add some graceful handling of these cases.
+* Add the `README.md` file with an overview and examples.
+* Modify the parallel code to export only the specific objects required for computation instead of forking the entire environment.  Maybe change the parallel backend to the `doParallel` package.
+* Add the Supervised Regression Tree subsemble option (activated by setting `subControl$supervised = "SRT"` or something similar).
+* Maybe disallow the number of subsets to be specified via the `subsets` argument and reserve that for specific subset (row index) lists only.  It might make more sense to just set the number of subsets via the `subControl` argument.
+* Maybe add row.names to `subpred` data.frame.
+* Add a warning message when a user tries to predict using a subsemble fit that was saved using `genControl$saveFits=FALSE`.  Currently, an unclear error message comes up: `No applicable method for 'predict' applied to an object of class "NULL"`
+* All parallel support for the `subsemble.predict` function.
+* Maybe use different seed arguments for data partitioning seed and model seed, so that we can set a partitioning seed, but leave the model seed as `NULL`.  We could remove the `seed` argument and create `subControl$seed`, `learnControl$seed` list elements.
+* Modify the `subsemble` internals to accept wrappers using both the `function(Y, X, newX)` notation (from the SuperLearner package) and translate the functions to the `function(x, y, newx)` notation.
+* Allow user to specify the `learner` as a list instead of a vector.
+* Add support for screening algorithms in the `learner` list.
+
+
+subsemble 0.0.9 (2014-07-01)
+----------------
+* Re-named the argument `x` to `xmat` in `subsemble` internal functions `.cvFun` and `.fitWrapper` to avoid naming conflicts with parSapply functions.  This was a bug introduced by the previous argument name change from `X` to `x` in the `subsemble` function.
+* Reduced the number of cores in a multicore cluster to the length of the list that the parSapply function is applied to (or number of cores, if that is fewer).  Previously, the multicore cluster was unnecessarily created using the maximum number of cores available.
+* git note: modify_interface_xynewx branch merged into master branch.
+
+
+subsemble 0.0.8 (2014-06-28)
+----------------
+* Changed the `X, Y, newX` arguments of the `subsemble` function to `x, y, newx` in order to conform to more common ML algorthim conventions in R.  Additionally, the order of the first two arguments was changed from `(Y,X)` to `(x, y)` to match common convention.  Lastly, the `newdata` argument in the `predict.subsemble` function was changed to `newx`.  The `predict` function expects the new data.frame/matrix to have the same structure as the design matrix, `x`, hence it is more descriptive to name this argument `newx`.
+* Added a `runtime` element to the `subsemble` output which records the execution times of various steps in the algorithm.
+* Added startup messages in the `R/zzz.R` file.
+* Changed `control.R` functions to internal functions.
+
+
+subsemble 0.0.7 (2014-06-26)
+----------------
+* Added subsets = 1 functionality to train on full data (subsets = 1 is the traditional Super Learner algorithm), and also added an example of this to the documentation.
+* Fixed a bug caused by repeating the same wrapper function in the `learner` argument, ie. `learner = c("SL.randomForest","SL.randomForest","SL.glm")`.
+* Fixed a typo in subsemble.Rd.
+* Changed the name of internal function `.makeZ` to `.make_Z_l` since it operates on a single learner only.
+* Replaced `length(learner)` with alias `L` in multiple places in the `subsemble` code.
+* Modified how `names(Z)` is specified.
+* Forcibly set `stratifyCV = FALSE` for both `cvControl` and `subControl` when the outcome is not binary. 
+* git note: enable_j1_case branch merged into master branch.
+
+
+subsemble 0.0.6 (2014-05-07)
+---------------
+* Added the ability to pass a snow cluster object to the `parallel` argument of the `subsemble` function.
+* git note: snowcluster branch merged into master branch.
+
+
+subsemble 0.0.5 (2014-05-05)
+---------------
+* Modified `predict.subsemble` code to force individual learner predictions into a vector.  The `SL.earth` wrapper created errors because it was returning a 1-column matrix instead of a vector.  Also modified the function to assign column names the `subpred` data.frame after inserting the predictions instead of before inserting the predictions.  
+* Added the `genControl` argument to the `subsemble` function to allow the user to not have to save all the model fits for a one-off type analysis.  This also required adding a `gen_control` function to the `control.R` script and modifying some internal `subsemble` code.
+* Changed the `parallel` argument in the `subsemble` function from a logical argument to a string equal to `"seq"` (the default) or `"multicore"`.
+* Inside the `subsemble` function, changed the name of the `sub.cvlist` object to `subCVsets`, which matches the output list name.
+* Change names of `sublearner.predict` and `subsemble.predict` output elements of the `subsemble` function to `subpred` and `pred`, respectively.  Also updated the `sublearner.predict` output element of the `predict.subsemble` function to `subpred`.  These were previously named to match the `SuperLearner` output conventions, but now they are nicer and easier to type.
+* Reversed the objects names `sublearners` and `subfits` inside the `subsemble` function because it made more sense to return an output object named `subfits` so it matches `metafit`.  Also required updating the `predict.subsemble` function.
+* Removed internal function, `.predFun` since it was not being used for anything.
+* Updated internal variables `L` and `l` to `M` and `m` to be consistent with the notation in the technical paper.
+
+
+subsemble 0.0.4 (2014-04-23)
+-----------------
+* Added an example to the `subsemble` function documentation.  (Might need to update when the `multiType` option is added.)
+* Fixed bug in `.subFun` that happens when `row.names(X)` is not 1:N.  Fixed by simply re-assigning `row.names(X)` as 1:N.  Fixed: `Error in FUN(1:3[[1L]], ...) : names not identical`
+* Added the `sub_control` and `learn_control` functions and added a `learnControl` argument to the `subsemble` function.  Also renamed the `subsemble.CV.control` function to `cv_control`.
+* Added `multiType` parameter to `learn_control` and implemented the `"crossprod"` type of library expansion.  
+* Removed the `shuffle` parameter in `subControl` and added a `supervision=NULL` parameter.  The latter is a placeholder for the Supervised Regression Tree subsemble, which is not implemented yet.
+* Removed `validRows` option in `sub_control` (previously, `subsemble.CV.control`), since it's not being used.
+* Updated argument descriptions in `subsemble.Rd`.
+* Fixed bug where `seed` was not being set.  Also added `set.seed(seed)` inside functions (with inherent randomness, like training functions) that were being applied in parallel to ensure that the results would be the same regardless of whether the operations were being run in parallel or not.
+* Renamed internal function argument, `x`, to `xmat` to avoid conflict with internal `clusterApply` functions.
+* Added a `.makeZ` internal function in order to more easily switch between `multiType` modes.
+* Changed `parLapply` functions to `parSapply` in order to match output to `sapply`.  This was causing the following error: `"Error in cvRes[j, ] (from #145) : incorrect number of dimensions"`
+* Removed `validRows` option in `cv_control` since it's not being used.
+* Switched the placement of the `id` argument in the `subsemble` function to later on in the argument list since it's not a commonly used argument.
+* Bug in `predict.SL.knn` when `metalearner = "SL.knn"`: `Error in as.matrix(train) : argument "X" is missing, with no default`.
+* Added new list elements to the output of the `subsemble` function.
+
+
+subsemble 0.0.3 (2014-03-29)
+-----------------
+* Fixed bug where `predict(object, newdata)` was not working for `object` of class `"subsemble"`.
+* Fixed typo where the `learner` default argument was listed as `"glm"` instead of `"SL.glm"`.
+* Added manual bound enforcement of Z matrix of predictions in the `predict.subsemble` function.
+* Added row names (same as input `X` row names) to the `Z` data.frame, a list element of the `subsemble` output.
+* Dropped `require(SuperLearner)` from the `subsemble` package since it is already loaded as a dependency.
+
+
+subsemble 0.0.2 (2014-02-16)
+-----------------
+* Removed the dependency on `SuperLearner.CV.control` function in the SuperLearner package.  Replaced with modified version of the function called, `subsemble.CV.control`.  This updated version of the `SuperLearner.CV.control` function overrides the `validRows` argument (to be `NULL`).
+* Added support for multiple learners.  Now the `learner` argument can be a character vector with a length that is a divisor of J.
+* Added support for the `metalearner` to be any general learner available in the SuperLearner candidate learner API, such as `"SL.glmnet"` or `"SL.randomForest"`.  Previously, the metalearner was just a glm.  
+* Removed requirement that `learner` must be a string must be like `"SL\\.[0-9a-zA_Z]+"`.  Now validating the `learner` and `metalearner` arguments by using `exists(learner)`.
+* Updated citation for Subsemble paper in the docs.
+* Fixed bug in `.subFun` in the `subsemble` function that caused errors when learners returned unlabeled predictions (missing row index name), as well as when they returned a 1-col data.frame instead of a vector for the pred object.  The former occured with `learner = c("SL.bart")` and the latter occured with `learner = c("SL.glmnet")`. 
+
+
+subsemble 0.0.1 (2014-01-19)
+-----------------
+* Initial release.
