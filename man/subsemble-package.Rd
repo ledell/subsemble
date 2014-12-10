@@ -12,8 +12,8 @@ Subsemble is a general subset ensemble prediction method, which can be used for 
 \tabular{ll}{
 Package: \tab subsemble\cr
 Type: \tab Package\cr
-Version: \tab 0.0.9.1\cr
-Date: \tab 2014-11-26\cr
+Version: \tab 0.0.9.9000\cr
+Date: \tab 2014-12-09\cr
 License: \tab Apache License (== 2.0)\cr
 }
 }
@@ -23,13 +23,13 @@ Author: Erin LeDell, Stephanie Sapp, Mark van der Laan
 Maintainer: Erin LeDell <ledell@berkeley.edu>
 }
 \references{
-Stephanie Sapp, Mark J. van der Laan & John Canny, Journal of Applied Statistics (2013). Subsemble: An ensemble method for combining subset-specific algorithm fits\cr
+Stephanie Sapp, Mark J. van der Laan & John Canny. Subsemble: An ensemble method for combining subset-specific algorithm fits.  Journal of Applied Statistics, 41(6):1247-1259, 2014\cr
 \url{http://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263}\cr
 \url{https://biostats.bepress.com/ucbbiostat/paper313}
 }
 
 \note{
-This work was supported in part by the Doris Duke Charitable Foundation Grant #: 2011042
+This work was supported in part by the Doris Duke Charitable Foundation Grant No. 2011042
 }
 
 \keyword{models}

@@ -112,7 +112,7 @@ An list of runtimes for various steps of the algorithm.  The list contains \code
 }
 
 \references{
-Stephanie Sapp, Mark J. van der Laan & John Canny, Journal of Applied Statistics (2013). Subsemble: An ensemble method for combining subset-specific algorithm fits\cr
+Stephanie Sapp, Mark J. van der Laan & John Canny. Subsemble: An ensemble method for combining subset-specific algorithm fits.  Journal of Applied Statistics, 41(6):1247-1259, 2014\cr
 \url{http://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263}\cr
 \url{https://biostats.bepress.com/ucbbiostat/paper313}
 }
@@ -131,22 +131,23 @@ Notice to users: The interface (function arguments/values) may be subject to cha
 \dontrun{
 # Load some example data.
 
-library(cvAUC)
+library(subsemble)
+library(cvAUC)  # >= version 1.0.1
 data(admissions)
 
 # Training data.
-x <- subset(admissions, select=-c(Y))[1:400,]
+x <- subset(admissions, select = -c(Y))[1:400,]
 y <- admissions$Y[1:400]
 
 # Test data.
-newx <- subset(admissions, select=-c(Y))[401:500,]
+newx <- subset(admissions, select = -c(Y))[401:500,]
 newy <- admissions$Y[401:500]
 
 
 # Set up the Subsemble.
 
 learner <- c("SL.randomForest", "SL.glm")
-metalearner <- c("SL.glm")
+metalearner <- "SL.glm"
 subsets <- 2
 
 
@@ -154,21 +155,21 @@ subsets <- 2
 # With learnControl$multiType="crossprod" (the default), 
 # we ensemble 4 models (2 subsets x 2 learners).
 
-fit <- subsemble(x=x, y=y, newx=newx, family=binomial(), 
+fit <- subsemble(x = x, y = y, newx = newx, family = binomial(), 
                  learner = learner, metalearner = metalearner,
                  subsets = subsets)
 
 
 # Evaulate the model by calculating AUC on the test set.
 
-auc <- cvAUC(predictions=fit$pred, labels=newy)$cvAUC
+auc <- AUC(predictions = fit$pred, labels = newy)
 print(auc)  # Test set AUC is: 0.937
 
 
 # We can also use the predict method to generate predictions on new data afterwards.
 
 pred <- predict(fit, newx)
-auc <- cvAUC(predictions=pred$pred, labels=newy)$cvAUC
+auc <- AUC(predictions = pred$pred, labels = newy)
 print(auc)  # Test set AUC is: 0.937
 
 
@@ -176,12 +177,12 @@ print(auc)  # Test set AUC is: 0.937
 # With learnControl$multiType="divisor", 
 # we ensemble only 2 models (one for each subset).
 
-fit <- subsemble(x=x, y=y, newx=newx, family=binomial(), 
+fit <- subsemble(x = x, y = y, newx = newx, family = binomial(), 
                  learner = learner, metalearner = metalearner,
                  subsets = subsets,
                  learnControl = list(multiType="divisor"))
 
-auc <- cvAUC(predictions=fit$pred, labels=newy)$cvAUC
+auc <- AUC(predictions = fit$pred, labels = newy)
 print(auc)  # Test set AUC is: 0.922
 
 
@@ -190,14 +191,14 @@ print(auc)  # Test set AUC is: 0.922
 # for a total of 3 models in the ensemble.
 
 learner <- c("SL.randomForest")
-metalearner <- c("SL.glmnet")
+metalearner <- "SL.glmnet"
 subsets <- 3
 
-fit <- subsemble(x=x, y=y, newx=newx, family=binomial(),
+fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
                  learner = learner, metalearner = metalearner,
                  subsets = subsets)
                  
-auc <- cvAUC(predictions=fit$pred, labels=newy)$cvAUC
+auc <- AUC(predictions = fit$pred, labels = newy)
 print(auc)  # Test set AUC is: 0.925
 
 
@@ -206,15 +207,56 @@ print(auc)  # Test set AUC is: 0.925
 # This is equivalent to the Super Learner algorithm.
 
 learner <- c("SL.randomForest", "SL.glm")
-metalearner <- c("SL.glm")
+metalearner <- "SL.glm"
 subsets <- 1
 
-fit <- subsemble(x=x, y=y, newx=newx, family=binomial(), 
+fit <- subsemble(x = x, y = y, newx = newx, family = binomial(), 
                  learner = learner, metalearner = metalearner,
                  subsets = subsets)
                  
-auc <- cvAUC(predictions=fit$pred, labels=newY)$cvAUC
+auc <- AUC(predictions = fit$pred, labels = newy)
 print(auc)  # Test set AUC is: 0.935
+
+
+# Multicore subsemble via the "parallel" package.
+# To perform the cross-validation and training steps using all available cores, 
+# use the parallel = "multicore" option.
+
+learner <- c("SL.randomForest", "SL.glm")
+metalearner <- "SL.glm"
+subsets <- 2
+
+fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
+                 learner = learner, metalearner = metalearner,
+                 subsets = subsets, parallel = "multicore")
+
+auc <- AUC(predictions = fit$pred, labels = newy)
+print(auc)  # Test set AUC is: 0.937
+
+
+# Parallel subsemble via the "doSNOW" package.
+# To perform the cross-validation and training sets using a SNOW cluster,
+# set up a SNOW cluster and pass the cluster object to subsemble.
+# If using the "SOCK" cluster type, make sure to export any functions
+# that are needed on the cluster nodes, like the algorithm wrapper functions.
+
+library(doSNOW)
+
+nodes <- 4
+cl <- makeCluster(nodes, type = "SOCK")
+registerDoSNOW(cl)
+clusterExport(cl, c(learner, metalearner)) 
+
+fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
+                 learner = learner, metalearner = metalearner,
+                 subsets = subsets, parallel = cl)
+stopCluster(cl)                 
+                 
+auc <- AUC(predictions = fit$pred, labels = newy)
+print(auc)  # Test set AUC is: 0.937
+
+
+# More information at: https://github.com/ledell/subsemble
 }
 }
 \keyword{models}

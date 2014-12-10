@@ -96,13 +96,12 @@ subsemble <- function(x, y, newx = NULL, family = gaussian(),
     if (inherits(parallel, "character")) {
       if (!(parallel %in% c("seq","multicore"))) {
         stop("'parallel' must be either 'seq' or 'multicore' or a snow cluster object")
-      }
-    } else if (!inherits(parallel, "cluster")) {
-        stop("'parallel' must be either 'seq' or 'multicore' or a snow cluster object")
-    }
-    if (parallel!="seq"){
+      } else if (parallel == "multicore") {
         require(parallel)
         ncores <- detectCores()
+      } 
+    } else if (!inherits(parallel, "cluster")) {
+        stop("'parallel' must be either 'seq' or 'multicore' or a snow cluster object")
     }
     
             

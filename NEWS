@@ -28,6 +28,14 @@ To Do
 * Add support for screening algorithms in the `learner` list.
 
 
+subsemble 0.0.9.9000 (2014-12-09)
+----------------
+* Fixed typo in the example in subsemble.Rd and changed `cvAUC` to `AUC` function.
+* Added an example of `subsemble` using a snow cluster to the documentation.
+* Removed some code that lead to a warning when using a SNOW cluster.
+* Updated README.md to include install instructions and code examples.
+
+
 subsemble 0.0.9 (2014-07-01)
 ----------------
 * Re-named the argument `x` to `xmat` in `subsemble` internal functions `.cvFun` and `.fitWrapper` to avoid naming conflicts with parSapply functions.  This was a bug introduced by the previous argument name change from `X` to `x` in the `subsemble` function.
