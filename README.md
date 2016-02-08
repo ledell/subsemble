@@ -1,12 +1,15 @@
 # subsemble
 
-The `subsemble` package is an R implementation of the Subsemble algorithm. Subsemble is a general subset ensemble prediction method, which can be used for small, moderate, or large datasets. Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of k-fold cross-validation to output a prediction function that combines the subset-specific fits. An oracle result provides a theoretical performance guarantee for Subsemble.
+The **subsemble** package is an R implementation of the Subsemble algorithm. Subsemble is a general subset ensemble prediction method, which can be used for small, moderate, or large datasets. Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of k-fold cross-validation to output a prediction function that combines the subset-specific fits. An oracle result provides a theoretical performance guarantee for Subsemble.
 
 [Stephanie Sapp](https://www.linkedin.com/in/sappstephanie), [Mark J. van der Laan](http://www.stat.berkeley.edu/~laan/index.html) & [John Canny](https://en.wikipedia.org/wiki/John_Canny). Subsemble: An ensemble method for combining subset-specific algorithm fits. *Journal of Applied Statistics*, 41(6):1247-1259, 2014.
 
 - Article: [http://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263](http://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263)
 - Preprint: [https://biostats.bepress.com/ucbbiostat/paper313](https://biostats.bepress.com/ucbbiostat/paper313)
 
+Implementation details of the **subsemble** R package available here: 
+
+LeDell, E. (2015) Scalable Ensemble Learning and Computationally Efficient Variance Estimation (Doctoral Dissertation).  University of California, Berkeley, USA. [http://www.stat.berkeley.edu/~ledell/papers/ledell-phd-thesis.pdf](http://www.stat.berkeley.edu/~ledell/papers/ledell-phd-thesis.pdf)
 
 ## Install subsemble
 
@@ -29,7 +32,7 @@ You can install:
 
 ## Using subsemble
 
-Here are some examples of how to use the `subsemble` package to do various types of learning tasks.  These examples are also part of the `subsemble` function documentation in the R package.
+Here are some examples of how to use the **subsemble** package to do various types of learning tasks.  These examples are also part of the `subsemble` function documentation in the R package.
 
 Load some example binary outcome data to use in all the examples below.
 
