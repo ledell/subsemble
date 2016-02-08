@@ -4,7 +4,7 @@
 An Ensemble Method for Combining Subset-Specific Algorithm Fits
 }
 \description{
-Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of V-fold cross-validation to output a prediction function that combines the subset-specific fits.
+Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of k-fold cross-validation to output a prediction function that combines the subset-specific fits.
 }
 \usage{
 subsemble(x, y, newx = NULL, family = gaussian(), 
@@ -57,7 +57,7 @@ Optional observation weights vector. As with \code{id} above, \code{obsWeights} 
 A random seed to be set (integer); defaults to 1.  If \code{NULL}, then a random seed will not be set.
 }
   \item{parallel}{
-A character string specifying optional parallelization.  Use \code{"seq"} for sequential computation (the default).  Use \code{"multicore"} to perform the V-fold (internal) cross-validation step as well as the learning across subsets in parallel over all available cores.  Or \code{parallel} can be a snow cluster object.  Both parallel options use the built-in functionality of the core "parallel" package. 
+A character string specifying optional parallelization.  Use \code{"seq"} for sequential computation (the default).  Use \code{"multicore"} to perform the k-fold (internal) cross-validation step as well as the learning across subsets in parallel over all available cores.  Or \code{parallel} can be a snow cluster object.  Both parallel options use the built-in functionality of the core "parallel" package. 
 }
 }
 
@@ -79,7 +79,7 @@ A vector containing the predicted values from the subsemble for the rows in \cod
 The Z matrix (the cross-validated predicted values for each sublearner).
 }
 \item{cvRisk}{
-A numeric vector with the V-fold cross-validated risk estimate for each algorithm in learning library. Note that this does not contain the CV risk estimate for the Subsemble, only the individual models in the library.  (Not enabled yet, set to \code{NULL}.)
+A numeric vector with the k-fold cross-validated risk estimate for each algorithm in learning library. Note that this does not contain the CV risk estimate for the Subsemble, only the individual models in the library.  (Not enabled yet, set to \code{NULL}.)
 }
 \item{family}{
 Returns the \code{family} argument from above.  
@@ -112,6 +112,9 @@ An list of runtimes for various steps of the algorithm.  The list contains \code
 }
 
 \references{
+LeDell, E. (2015) Scalable Ensemble Learning and Computationally Efficient Variance Estimation (Doctoral Dissertation).  University of California, Berkeley, USA.\cr
+\url{http://www.stat.berkeley.edu/~ledell/papers/ledell-phd-thesis.pdf}\cr
+\cr
 Stephanie Sapp, Mark J. van der Laan & John Canny. Subsemble: An ensemble method for combining subset-specific algorithm fits.  Journal of Applied Statistics, 41(6):1247-1259, 2014\cr
 \url{http://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263}\cr
 \url{https://biostats.bepress.com/ucbbiostat/paper313}

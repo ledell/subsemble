@@ -1,6 +1,6 @@
 # subsemble
 
-The `subsemble` package is an R implementation of the Subsemble algorithm. Subsemble is a general subset ensemble prediction method, which can be used for small, moderate, or large datasets. Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of V-fold cross-validation to output a prediction function that combines the subset-specific fits. An oracle result provides a theoretical performance guarantee for Subsemble.
+The `subsemble` package is an R implementation of the Subsemble algorithm. Subsemble is a general subset ensemble prediction method, which can be used for small, moderate, or large datasets. Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of k-fold cross-validation to output a prediction function that combines the subset-specific fits. An oracle result provides a theoretical performance guarantee for Subsemble.
 
 [Stephanie Sapp](https://www.linkedin.com/in/sappstephanie), [Mark J. van der Laan](http://www.stat.berkeley.edu/~laan/index.html) & [John Canny](https://en.wikipedia.org/wiki/John_Canny). Subsemble: An ensemble method for combining subset-specific algorithm fits. *Journal of Applied Statistics*, 41(6):1247-1259, 2014.
 
@@ -14,13 +14,13 @@ You can install:
 
 -   the latest released version from CRAN with
 
-    ``` r
+    ```r
     install.packages("subsemble")
     ```
 
 -   the latest development version from GitHub with
 
-    ``` r
+    ```r
     if (packageVersion("devtools") < 1.6) {
       install.packages("devtools")
     }
