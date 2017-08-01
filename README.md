@@ -175,7 +175,7 @@ print(auc)  # Test set AUC is: 0.937
 ```
 
 #### SNOW Subsemble 
-To perform the cross-validation and training sets using a [SNOW](http://cran.r-project.org/web/packages/snow/index.html) cluster, the user will need to set up a SNOW cluster and pass the cluster object to the `subsemble` function via the `parallel` argument.  If using the `"SOCK"` cluster type, make sure to export any functions that are needed on the cluster nodes, like the algorithm wrapper functions.
+To perform the cross-validation and training steps using a [SNOW](http://cran.r-project.org/web/packages/snow/index.html) cluster, the user will need to set up a SNOW cluster and pass the cluster object to the `subsemble` function via the `parallel` argument.  If using the `"SOCK"` cluster type, make sure to export any functions that are needed on the cluster nodes, like the algorithm wrapper functions.
 
 This example uses the [doSNOW](http://cran.r-project.org/web/packages/doSNOW/index.html) library to create a 4-node cluster.
 
