@@ -1,3 +1,4 @@
 exportPattern("^[[:alpha:]]+")
 
 import(SuperLearner)
+importFrom("stats", "gaussian", "predict")
