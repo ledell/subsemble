@@ -21,7 +21,7 @@ function(object, newx, x = NULL, y = NULL, ...)
     subpred[subpred > object$ylim[2]] <- object$ylim[2]
     row.names(subpred) <- row.names(newx)
 
-    pred <- predict(object$metafit$fit, newdata=subpred, family=family)
+    pred <- predict(object$metafit$fit, newdata=subpred, family=object$family)
     pred[pred < object$ylim[1]] <- object$ylim[1]  #Enforce bounds
     pred[pred > object$ylim[2]] <- object$ylim[2]
     names(pred) <- row.names(newx)

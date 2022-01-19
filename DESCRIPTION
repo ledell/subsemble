@@ -1,10 +1,10 @@
 Package: subsemble
 Type: Package
 Title: An Ensemble Method for Combining Subset-Specific Algorithm Fits
-Version: 0.0.9.9000
+Version: 0.0.9.9001
 Date: 2014-12-09
 Author: Erin LeDell, Stephanie Sapp, Mark van der Laan
-Maintainer: Erin LeDell <ledell@berkeley.edu>
+Maintainer: Erin LeDell <oss@ledell.org>
 Description: Subsemble is a general subset ensemble prediction method, which can be used for small, moderate, or large datasets. Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of V-fold cross-validation to output a prediction function that combines the subset-specific fits. An oracle result provides a theoretical performance guarantee for Subsemble. 
 License: Apache License (== 2.0)
 Depends: R (>= 2.14.0), SuperLearner

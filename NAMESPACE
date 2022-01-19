@@ -1,3 +1,7 @@
 exportPattern("^[[:alpha:]]+")
 
 import(SuperLearner)
+importFrom("stats", "gaussian", "predict")
+importFrom("parallel", "detectCores", "parSapply", "makeCluster", "stopCluster")
+
+S3method(predict, subsemble)
