@@ -161,7 +161,7 @@ subsemble <- function(x, y, newx = NULL, family = gaussian(),
         cvRes <- sapply(X=1:V, FUN=.cvFun, subCVsets=subCVsets, y=y, xmat=x, family=family,
                         learner=learner, obsWeights=obsWeights, seed=seed)  #cvRes is a J x V matrix
       }
-      if (class(cvRes)!="matrix") {
+      if (!inherits(cvRes, "matrix")) {
         cvRes <- t(as.matrix(cvRes))
       } 
       Z <- as.data.frame(sapply(1:J, .subPreds, cvRes=cvRes))
