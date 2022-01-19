@@ -9,7 +9,7 @@ The **subsemble** package is an R implementation of the Subsemble algorithm. Sub
 
 Implementation details of the **subsemble** R package available here: 
 
-LeDell, E. (2015) Scalable Ensemble Learning and Computationally Efficient Variance Estimation (Doctoral Dissertation).  University of California, Berkeley, USA. [http://www.stat.berkeley.edu/~ledell/papers/ledell-phd-thesis.pdf](http://www.stat.berkeley.edu/~ledell/papers/ledell-phd-thesis.pdf)
+LeDell, E. (2015) Scalable Ensemble Learning and Computationally Efficient Variance Estimation (Doctoral Dissertation).  University of California, Berkeley, USA. [https://github.com/ledell/phd-thesis/blob/main/ledell-phd-thesis.pdf](https://github.com/ledell/phd-thesis/blob/main/ledell-phd-thesis.pdf)
 
 ## Install subsemble
 
@@ -24,9 +24,6 @@ You can install:
 -   the latest development version from GitHub with
 
     ```r
-    if (packageVersion("devtools") < 1.6) {
-      install.packages("devtools")
-    }
     devtools::install_github("ledell/subsemble")
     ```
 
@@ -156,10 +153,12 @@ print(auc)  # Test set AUC is: 0.935
 ```
 
 ### Parallel training
+
 One of the benefits to using Subsemble (as opposed to other ensemble algorithms) is that the learning process can be broken up into smaller learning problems that can be easily parallelized across multiple cores or nodes.  This is especially useful in cases where there is not enough memory on your machine(s) to train an ensemble on the full training set.  
 
 #### Multicore Subsemble
-To perform the cross-validation and training steps in parallel using all available cores, use the `parallel = "multicore"` option.
+
+To perform the cross-validation and training steps in parallel using all available cores, use the `parallel = "multicore"` option, which will use the native **parallel** package in R for parallel processing.  It is recommended to use this option if you want to speed up the training (it will use all cores).
 
 ```r
 learner <- c("SL.randomForest", "SL.glm")
@@ -175,6 +174,7 @@ print(auc)  # Test set AUC is: 0.937
 ```
 
 #### SNOW Subsemble 
+
 To perform the cross-validation and training steps using a [SNOW](http://cran.r-project.org/web/packages/snow/index.html) cluster, the user will need to set up a SNOW cluster and pass the cluster object to the `subsemble` function via the `parallel` argument.  If using the `"SOCK"` cluster type, make sure to export any functions that are needed on the cluster nodes, like the algorithm wrapper functions.
 
 This example uses the [doSNOW](http://cran.r-project.org/web/packages/doSNOW/index.html) library to create a 4-node cluster.
