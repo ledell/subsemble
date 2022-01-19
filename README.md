@@ -92,7 +92,7 @@ Since the `newx` argument was not `NULL` in the command above, the `subsemble` f
 
 ```r
 auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.937
+print(auc)  # Test set AUC is: 0.9431063
 ```
 
 By default, `newx` will be `NULL` and will return the predicted values for the training data.  If `newx = NULL` in the statement above, we could use the `predict` method to generate predictions on new data after training the subsemble fit.
@@ -101,7 +101,7 @@ By default, `newx` will be `NULL` and will return the predicted values for the t
 pred <- predict(fit, newx)
 
 auc <- AUC(predictions = pred$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.937
+print(auc)  # Test set AUC is: 0.9431063
 ```
 
 #### Non-default variations
@@ -117,7 +117,7 @@ fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
                  learnControl = list(multiType = "divisor"))
 
 auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.922
+print(auc)  # Test set AUC is: 0.9381229
 ```
 
 The `subsemble` function can also be used with a single base learner.  In this example, there are 3 subsets and 1 learner, for a total of 3 models in the ensemble.
@@ -132,7 +132,7 @@ fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
                  subsets = subsets)
                  
 auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.925
+print(auc)  # Test set AUC is: 0.9356312
 ```
 
 #### Super Learner algorithm
@@ -149,7 +149,7 @@ fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
                  subsets = subsets)
                  
 auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.935
+print(auc)  # Test set AUC is: 0.9522425
 ```
 
 ### Parallel training
@@ -170,7 +170,7 @@ fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
                  subsets = subsets, parallel = "multicore")
 
 auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.937
+print(auc)  # Test set AUC is: 0.9431063
 ```
 
 #### SNOW Subsemble 
@@ -193,6 +193,6 @@ fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
 stopCluster(cl)                 
                  
 auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.937
+print(auc)  # Test set AUC is:  0.9431063
 ```
 
