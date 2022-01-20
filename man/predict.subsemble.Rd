@@ -39,14 +39,14 @@ A data.frame with the predicted values from each sublearner algorithm for the ro
 }
 
 \author{
-Erin LeDell \email{ledell@berkeley.edu}
+Erin LeDell \email{oss@ledell.org}
 }
 
 \seealso{
 \code{\link[subsemble:subsemble]{subsemble}}
 }
 \examples{
-# See subsemble documentation for an example.
+# See subsemble() function documentation for an example.
 
 }
 \keyword{models}

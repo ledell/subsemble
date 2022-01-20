@@ -120,7 +120,7 @@ Stephanie Sapp, Mark J. van der Laan & John Canny. Subsemble: An ensemble method
 \url{https://biostats.bepress.com/ucbbiostat/paper313/}
 }
 \author{
-Erin LeDell  \email{ledell@berkeley.edu} 
+Erin LeDell  \email{oss@ledell.org} 
 }
 \note{
 Notice to users: The interface (function arguments/values) may be subject to change prior to version 1.0.0.
