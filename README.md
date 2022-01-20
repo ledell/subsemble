@@ -4,8 +4,8 @@ The **subsemble** package is an R implementation of the Subsemble algorithm. Sub
 
 [Stephanie Sapp](https://www.linkedin.com/in/sappstephanie), [Mark J. van der Laan](http://www.stat.berkeley.edu/~laan/index.html) & [John Canny](https://en.wikipedia.org/wiki/John_Canny). Subsemble: An ensemble method for combining subset-specific algorithm fits. *Journal of Applied Statistics*, 41(6):1247-1259, 2014.
 
-- Article: [http://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263](http://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263)
-- Preprint: [https://biostats.bepress.com/ucbbiostat/paper313](https://biostats.bepress.com/ucbbiostat/paper313)
+- Article: [https://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263](https://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263)
+- Preprint: [https://biostats.bepress.com/ucbbiostat/paper313/](https://biostats.bepress.com/ucbbiostat/paper313)
 
 Implementation details of the **subsemble** R package available here: 
 

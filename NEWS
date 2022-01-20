@@ -28,8 +28,10 @@ To Do
 * Add support for screening algorithms in the `learner` list.
 
 
-subsemble 0.0.9.9000 (2014-12-09)
+subsemble 0.1.0 (2022-01-19)
 ----------------
+* Fixed a bunch of CRAN issues; addressed all NOTES in R CMD BUILD --as-cran.
+* Fixed a warning in `subsemble` function.
 * Fixed typo in the example in subsemble.Rd and changed `cvAUC` to `AUC` function.
 * Added an example of `subsemble` using a snow cluster to the documentation.
 * Removed some code that lead to a warning when using a SNOW cluster.
