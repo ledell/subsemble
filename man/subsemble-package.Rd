@@ -13,12 +13,12 @@ The Subsemble algorithm is a general subset ensemble prediction method, which ca
 Package: \tab subsemble\cr
 Type: \tab Package\cr
 Version: \tab 0.1.0\cr
-Date: \tab 2012-01-19\cr
+Date: \tab 2012-01-22\cr
 License: \tab Apache License (== 2.0)\cr
 }
 }
 \author{
-Author: Erin LeDell, Stephanie Sapp, Mark van der Laan
+Authors: Erin LeDell, Stephanie Sapp, Mark van der Laan
 
 Maintainer: Erin LeDell <oss@ledell.org>
 }
@@ -26,7 +26,7 @@ Maintainer: Erin LeDell <oss@ledell.org>
 LeDell, E. (2015) Scalable Ensemble Learning and Computationally Efficient Variance Estimation (Doctoral Dissertation).  University of California, Berkeley, USA.\cr
 \url{https://github.com/ledell/phd-thesis/blob/main/ledell-phd-thesis.pdf}\cr
 \cr
-Stephanie Sapp, Mark J. van der Laan & John Canny. Subsemble: An ensemble method for combining subset-specific algorithm fits.  Journal of Applied Statistics, 41(6):1247-1259, 2014\cr
+Stephanie Sapp, Mark J. van der Laan & John Canny. (2014) Subsemble: An ensemble method for combining subset-specific algorithm fits.  Journal of Applied Statistics, 41(6):1247-1259.\cr
 \url{https://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263}\cr
 \url{https://biostats.bepress.com/ucbbiostat/paper313/}
 }
