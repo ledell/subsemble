@@ -115,23 +115,19 @@ An list of runtimes for various steps of the algorithm.  The list contains \code
 LeDell, E. (2015) Scalable Ensemble Learning and Computationally Efficient Variance Estimation (Doctoral Dissertation).  University of California, Berkeley, USA.\cr
 \url{https://github.com/ledell/phd-thesis/blob/main/ledell-phd-thesis.pdf}\cr
 \cr
-Stephanie Sapp, Mark J. van der Laan & John Canny. Subsemble: An ensemble method for combining subset-specific algorithm fits.  Journal of Applied Statistics, 41(6):1247-1259, 2014\cr
+Stephanie Sapp, Mark J. van der Laan & John Canny. (2014) Subsemble: An ensemble method for combining subset-specific algorithm fits.  Journal of Applied Statistics, 41(6):1247-1259\cr
 \url{https://www.tandfonline.com/doi/abs/10.1080/02664763.2013.864263}\cr
 \url{https://biostats.bepress.com/ucbbiostat/paper313/}
 }
 \author{
 Erin LeDell  \email{oss@ledell.org} 
 }
-\note{
-Notice to users: The interface (function arguments/values) may be subject to change prior to version 1.0.0.
-}
-
 
 \seealso{
 \code{\link[SuperLearner:listWrappers]{listWrappers}}, \code{\link[SuperLearner:SuperLearner]{SuperLearner}}
 }
 \examples{
-\dontrun{
+\donttest{
 # Load some example data.
 
 library(subsemble)
@@ -183,7 +179,7 @@ print(auc)  # Test set AUC is: 0.937
 fit <- subsemble(x = x, y = y, newx = newx, family = binomial(), 
                  learner = learner, metalearner = metalearner,
                  subsets = subsets,
-                 learnControl = list(multiType="divisor"))
+                 learnControl = list(multiType = "divisor"))
 
 auc <- AUC(predictions = fit$pred, labels = newy)
 print(auc)  # Test set AUC is: 0.922
@@ -225,41 +221,7 @@ print(auc)  # Test set AUC is: 0.935
 # To perform the cross-validation and training steps using all available cores, 
 # use the parallel = "multicore" option.
 
-learner <- c("SL.randomForest", "SL.glm")
-metalearner <- "SL.glm"
-subsets <- 2
-
-fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
-                 learner = learner, metalearner = metalearner,
-                 subsets = subsets, parallel = "multicore")
-
-auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.937
-
-
-# Parallel subsemble via the "doSNOW" package.
-# To perform the cross-validation and training sets using a SNOW cluster,
-# set up a SNOW cluster and pass the cluster object to subsemble.
-# If using the "SOCK" cluster type, make sure to export any functions
-# that are needed on the cluster nodes, like the algorithm wrapper functions.
-
-library(doSNOW)
-
-nodes <- 4
-cl <- makeCluster(nodes, type = "SOCK")
-registerDoSNOW(cl)
-clusterExport(cl, c(learner, metalearner)) 
-
-fit <- subsemble(x = x, y = y, newx = newx, family = binomial(),
-                 learner = learner, metalearner = metalearner,
-                 subsets = subsets, parallel = cl)
-stopCluster(cl)                 
-                 
-auc <- AUC(predictions = fit$pred, labels = newy)
-print(auc)  # Test set AUC is: 0.937
-
-
-# More information at: https://github.com/ledell/subsemble
+# More examples and information at: https://github.com/ledell/subsemble
 }
 }
 \keyword{models}

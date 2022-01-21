@@ -2,13 +2,15 @@ Package: subsemble
 Type: Package
 Title: An Ensemble Method for Combining Subset-Specific Algorithm Fits
 Version: 0.1.0
-Date: 2022-01-19
-Author: Erin LeDell, Stephanie Sapp, Mark van der Laan
-Maintainer: Erin LeDell <oss@ledell.org>
-Description: The Subsemble algorithm is a general subset ensemble prediction method, which can be used for small, moderate, or large datasets. Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of V-fold cross-validation to output a prediction function that combines the subset-specific fits. An oracle result provides a theoretical performance guarantee for Subsemble. 
+Date: 2022-01-22
+Authors@R: c(
+    person("Erin", "LeDell", email = "oss@ledell.org", role = "cre"),
+    person("Stephanie", "Sapp", role = "aut"),
+    person("Mark", "van der Laan", role = c("aut")))
+Description: The Subsemble algorithm is a general subset ensemble prediction method, which can be used for small, moderate, or large datasets. Subsemble partitions the full dataset into subsets of observations, fits a specified underlying algorithm on each subset, and uses a unique form of k-fold cross-validation to output a prediction function that combines the subset-specific fits. An oracle result provides a theoretical performance guarantee for Subsemble. The paper, "Subsemble: An ensemble method for combining subset-specific algorithm fits" is authored by Stephanie Sapp, Mark J. van der Laan & John Canny (2014) <doi:10.1080/02664763.2013.864263>. 
 License: Apache License (== 2.0)
 Depends: R (>= 2.14.0), SuperLearner
-Suggests: arm, caret, class, e1071, earth, gam, gbm, glmnet, Hmisc, ipred, lattice, LogicReg, MASS, mda, mlbench, nnet, parallel, party, polspline, quadprog, randomForest, rpart, SIS, spls, stepPlr
+Suggests: arm, caret, class, cvAUC, e1071, earth, gam, gbm, glmnet, Hmisc, ipred, lattice, LogicReg, MASS, mda, mlbench, nnet, parallel, party, polspline, quadprog, randomForest, rpart, SIS, spls, stepPlr
 URL: https://github.com/ledell/subsemble
 BugReports: https://github.com/ledell/subsemble/issues
 LazyLoad: yes
